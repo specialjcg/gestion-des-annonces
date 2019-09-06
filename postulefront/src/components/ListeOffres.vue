@@ -138,7 +138,7 @@
               >
 
               <v-combobox
-                v-model="eventi.chipspost"
+                v-model="eventi.listfeature"
                 :items="items"
                 chips
                 clearable
@@ -222,16 +222,16 @@ import Vue from "vue";
 import Component from "vue-class-component";
 import { Watch } from "vue-property-decorator";
 import moment from "moment";
-import { Chips } from "../domain/Chips";
-import { Post } from "../domain/Post";
-import { Postjson } from "../domain/Postjson";
-import { TicketService } from "@/services/TicketService";
+import { Features } from "../domain/Features";
+import { Offre } from "../domain/Offre";
+import { Offrejson } from "../domain/OffreJson";
+import { OffreService } from "../services/OffreService";
 
 @Component({})
-export default class HelloWorld extends Vue {
+export default class ListeOffres extends Vue {
   // Les données initiales peuvent être déclarées comme des propriétés de l'instance
 
-  events: Post[] = [];
+  events: Offre[] = [];
 
   mycolor1: string = "rgba(188, 231, 132, 1)";
   mycolor2: string = "rgba(93, 211, 158, 1)";
@@ -265,12 +265,12 @@ export default class HelloWorld extends Vue {
       cancelAnimationFrame(this.globalID);
     }
   }
-  formatdate(event: Post): Date {
+  formatdate(event: Offre): Date {
     return event.time;
   }
-  async addTicket(event: Post) {
+  async addTicket(event: Offre) {
     let uri = "http://localhost:8080/api/postule";
-    let mychip = new Postjson(event);
+    let mychip = new Offrejson(event);
 
     var result = JSON.stringify(mychip);
 
@@ -287,7 +287,7 @@ export default class HelloWorld extends Vue {
 
   async chargeTicket() {
     this.loading = false;
-    let ticketService = new TicketService();
+    let ticketService = new OffreService();
     this.events = await ticketService.chargeTicket();
 
     this.nbDemandemax = this.events.length;
@@ -295,14 +295,14 @@ export default class HelloWorld extends Vue {
     this.loading = true;
   }
 
-  updateTicket(event: Post) {
+  updateTicket(event: Offre) {
     if (event.id == 0) {
       this.addTicket(event);
     } else {
       let uri = "http://localhost:8080/api/postule/" + event.id;
-      let mychip = new Postjson(event);
-      mychip.chips.id = event.chipspostId;
-      var result = JSON.stringify(mychip);
+      let newListOfFeatures = new Offrejson(event);
+      newListOfFeatures.features.id = event.listfeatureId;
+      var result = JSON.stringify(newListOfFeatures);
 
       this.axios
         .post(uri, result, {
@@ -315,25 +315,25 @@ export default class HelloWorld extends Vue {
         });
     }
   }
-  deleteTicket(event: Post) {
+  deleteTicket(event: Offre) {
     let uri = "http://localhost:8080/api/postule/delete/" + event.id;
     this.axios.post(uri).then(response => {
       console.log(response);
     });
     event.dialog = false;
   }
-  remove(event: Post, item: string) {
-    event.chipspost.splice(event.chipspost.indexOf(item), 1);
-    event.chipspost = [...event.chipspost];
+  remove(event: Offre, item: string) {
+    event.listfeature.splice(event.listfeature.indexOf(item), 1);
+    event.listfeature = [...event.listfeature];
   }
   timeline() {
     return this.events.slice().reverse();
   }
-  changeUrlImage(eventi: Post) {
+  changeUrlImage(eventi: Offre) {
     eventi.show = !eventi.show;
   }
 
-  modifyUrlImg(eventi: Post, nouvelImage: event) {
+  modifyUrlImg(eventi: Offre, nouvelImage: event) {
     // Reference to the DOM input element
     var input = event.target;
 
@@ -354,10 +354,10 @@ export default class HelloWorld extends Vue {
 
     this.changeUrlImage(eventi);
   }
-  changelink(eventi: Post) {
+  changelink(eventi: Offre) {
     eventi.show1 = !eventi.show1;
   }
-  modifylink(event: Post, nouveaulink: $event) {
+  modifylink(event: Offre, nouveaulink: $event) {
     // event.srcimg = require('@/assets/'+nouvelImage[0].name);
     event.target = nouveaulink;
     this.changelink(event);
@@ -373,8 +373,8 @@ export default class HelloWorld extends Vue {
       timeformat: moment(strTime).format("LLL"),
       srcimg: "",
       dialog: false,
-      chipspost: [],
-      chipspostId: 0,
+      listfeature: [],
+      listfeatureId: 0,
       srcimage: "",
       target: "",
       show1: false,

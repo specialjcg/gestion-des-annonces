@@ -1,19 +1,19 @@
 <template>
   <v-app>
     <v-content>
-      <HelloWorld />
+      <ListeOffres />
     </v-content>
   </v-app>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
-import HelloWorld from "./components/HelloWorld.vue";
+import ListeOffres from "./components/ListeOffres.vue";
 
 export default Vue.extend({
   name: "App",
   components: {
-    HelloWorld
+    ListeOffres
   },
   data: () => ({
     //

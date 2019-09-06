@@ -1,4 +1,4 @@
-export class Chips {
+export class Features {
     id: number;
     chip1: string;
     chip2: string;

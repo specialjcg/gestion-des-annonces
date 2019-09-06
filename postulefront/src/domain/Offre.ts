@@ -1,4 +1,4 @@
-export class Post {
+export class Offre {
     id: number;
     text: number;
     time: Date;
@@ -7,8 +7,8 @@ export class Post {
     show1: boolean;
     show: boolean;
     srcimg: string;
-    chipspost: string[];
-    chipspostId: number;
+    listfeature: string[];
+    listfeatureId: number;
     target: string;
     srcimage: string;
     constructor() {
@@ -18,8 +18,8 @@ export class Post {
       this.timeformat = "";
       this.dialog = false;
       this.srcimg = "";
-      this.chipspost = [];
-      this.chipspostId = 0;
+      this.listfeature = [];
+      this.listfeatureId = 0;
       this.srcimage = "";
       this.target = "";
       this.show = false;

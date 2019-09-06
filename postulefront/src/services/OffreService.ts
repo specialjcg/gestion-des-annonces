@@ -1,12 +1,12 @@
-import {Chips} from '@/domain/Chips';
-import {Post} from '@/domain/Post';
+import {Features} from '@/domain/Features';
+import {Offre} from '@/domain/Offre';
 import axios from 'axios';
-import {AxiosResponse} from 'axios';
+
 
 import moment from 'moment';
 
-export class TicketService {
-  transferttoitem(res: Chips): string[] {
+export class OffreService {
+  transferttoitem(res: Features): string[] {
     const item: string[] = [];
     if (res.chip1 != null) {
       item.push(res.chip1);
@@ -42,15 +42,15 @@ export class TicketService {
     return require('@/assets/' + ima);
   }
 
-  public async chargeTicket():Promise<Post[]> {
+  public async chargeTicket():Promise<Offre[]> {
     let uri = 'http://localhost:8080/api/postule';
-    const event: Post[] = [];
+    const event: Offre[] = [];
     const response = await axios.get(uri, {
       headers: {
         'Content-Type': 'application/json',
       },
     });
-    const events: Post[] = [];
+    const events: Offre[] = [];
     return response.data.map(res=>{
       let myitem: string[] = [];
 
@@ -69,8 +69,8 @@ export class TicketService {
         timeformat: moment(res.time).format('LLL'),
         srcimg: res.srcimg,
         dialog: false,
-        chipspost: myitem,
-        chipspostId: res.chips.id,
+        listfeature: myitem,
+        listfeatureId: res.chips.id,
         srcimage: varsrcimg.src,
         target: res.target,
         show: false,
