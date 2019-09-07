@@ -1,4 +1,4 @@
-export class Offre {
+export class Offer {
     id: number;
     text: number;
     time: Date;

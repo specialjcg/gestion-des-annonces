@@ -50,12 +50,12 @@ public class ListePostule implements Serializable {
         this.srcimg = srcimg;
     }
 
-    public Chiplist getChips() {
-        return this.chips;
+    public Chiplist getFeatures() {
+        return this.features;
     }
 
-    public void setChips(Chiplist chips) {
-        this.chips = chips;
+    public void setFeatures(Chiplist features) {
+        this.features = features;
     }
 
     public String getTarget() {
@@ -70,17 +70,17 @@ public class ListePostule implements Serializable {
 String text,
 Date time,
 String srcimg,
-Chiplist chips,
+Chiplist features,
 String target) {
 
         this.text = text;
         this.time = time;
         this.srcimg = srcimg;
-        this.chips = chips;
+        this.features = features;
         this.target = target;
     }
-    @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Id  
     @Column(name="id")
     private Long id;
     @Column(name="text")
@@ -90,8 +90,8 @@ String target) {
     @Column(name="srcimg")
     private String srcimg;
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "chips", referencedColumnName = "id")
-    private Chiplist chips;
+    @JoinColumn(name = "features", referencedColumnName = "id")
+    private Chiplist features;
     @Column(name="target")
     private String target;
 

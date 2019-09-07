@@ -1,11 +1,11 @@
 import {Features} from '@/domain/Features';
-import {Offre} from '@/domain/Offre';
+import {Offer} from '@/domain/Offer';
 import axios from 'axios';
 
-
 import moment from 'moment';
+import {Offerjson} from '@/domain/OfferJson';
 
-export class OffreService {
+export class OfferService {
   transferttoitem(res: Features): string[] {
     const item: string[] = [];
     if (res.chip1 != null) {
@@ -42,7 +42,7 @@ export class OffreService {
     return require('@/assets/' + ima);
   }
 
-  public async chargeTicket():Promise<Offre[]> {
+  public async loadOffer(): Promise<Offre[]> {
     let uri = 'http://localhost:8080/api/postule';
     const event: Offre[] = [];
     const response = await axios.get(uri, {
@@ -51,10 +51,8 @@ export class OffreService {
       },
     });
     const events: Offre[] = [];
-    return response.data.map(res=>{
-      let myitem: string[] = [];
-
-      myitem = this.transferttoitem(res.chips);
+    return response.data.map(res => {
+      let myitem: string[] = this.transferttoitem(res.features);
       let varsrcimg = new Image();
       let str: string = res.srcimg;
       if (str.includes('/')) {
@@ -70,13 +68,22 @@ export class OffreService {
         srcimg: res.srcimg,
         dialog: false,
         listfeature: myitem,
-        listfeatureId: res.chips.id,
+        listfeatureId: res.features.id,
         srcimage: varsrcimg.src,
         target: res.target,
         show: false,
         show1: false,
       };
     });
-   
+  }
+  async addOffer(event: Offre) {
+    let uri = 'http://localhost:8080/api/postule';
+    let mychip = new Offrejson(event);
+    var result = JSON.stringify(mychip);
+    await axios.post(uri, result, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
   }
 }

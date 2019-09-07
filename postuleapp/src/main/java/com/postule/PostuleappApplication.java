@@ -17,14 +17,14 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 public class PostuleappApplication extends SpringBootServletInitializer {
   @Bean
   public WebMvcConfigurer corsConfigurer() {
-    return new WebMvcConfigurerAdapter() {
-      @Override
-      public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**").allowedOrigins(
-            "*"); // for /** means all mapping URL, and * for all domain
-      }
-    };
-  }
+      return new WebMvcConfigurerAdapter() {
+        @Override
+        public void addCorsMappings(CorsRegistry registry) {
+          registry.addMapping("/**").allowedOrigins(
+              "*"); // for /** means all mapping URL, and * for all domain
+        }
+      };
+    }
 
   @Override
   protected SpringApplicationBuilder

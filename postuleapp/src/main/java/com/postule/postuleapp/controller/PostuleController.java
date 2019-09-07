@@ -1,9 +1,5 @@
 package com.postule.postuleapp.controller;
 
-
-
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -13,16 +9,14 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.cors.CorsConfiguration;
 
 
-import java.time.LocalDate;
-import java.util.Date;
+
 import java.util.List;
 
 import com.postule.postuleapp.exception.ResourceNotFoundException;
-import com.postule.postuleapp.model.Chiplist;
+
 import com.postule.postuleapp.model.ListePostule;
 import com.postule.postuleapp.repository.PostuleRepository;
 
-import javax.management.relation.RelationNotFoundException;
 import javax.validation.Valid;
 
 @RestController
@@ -74,7 +68,7 @@ public class PostuleController {
         postule.setTarget(postuleDetails.getTarget());
         postule.setText(postuleDetails.getText());
     postule.setTime(postuleDetails.getTime());
-    postule.setChips(postuleDetails.getChips());
+    postule.setFeatures(postuleDetails.getFeatures());
         ListePostule updatedPostule = postuleRepository.save(postule);
         return updatedPostule;
     }

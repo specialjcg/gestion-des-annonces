@@ -122,10 +122,10 @@ String chip9) {
 
    
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="id")
     private Long id;
-    @OneToOne(mappedBy = "chips")
+    @OneToOne(mappedBy = "features")
     private ListePostule listePostule;
     @Column(name="chip1")
     private String chip1;

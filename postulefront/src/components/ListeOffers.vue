@@ -50,7 +50,7 @@
           <v-card class="mx-auto" width="500px" elevation-24 :color="mycolor1">
             <a :href="eventi.target" target="_blank">
               <div
-                v-show="eventi.srcimgage != ''"
+                v-show="eventi.srcimg != ''"
                 style="width:100%;height:200px;"
               >
                 <img
@@ -66,7 +66,7 @@
                 v-show="eventi.show1"
                 width="80%"
                 multiple
-                @change="modifylink(eventi, $event)"
+                @change="modifyLink(eventi, $event)"
                 label="lien vers annonce"
                 :placeholder="eventi.target"
                 ><span>{{ eventi.target }}</span> </v-text-field
@@ -130,7 +130,7 @@
                     small
                     dark
                     depressed
-                    @click="changelink(eventi)"
+                    @click="changeLink(eventi)"
                   >
                     <v-icon title="Link">mdi-link</v-icon>
                   </v-btn>
@@ -175,7 +175,7 @@
               </v-chip-group></v-card-actions
             >
             <v-card-actions>
-              <v-btn :color="mycolor4" dark @click="updateTicket(eventi)">
+              <v-btn :color="mycolor4" dark @click="updateOffer(eventi)">
                 Save
               </v-btn>
 
@@ -201,7 +201,7 @@
                         <v-btn
                           color="green darken-1"
                           text
-                          @click="deleteTicket(eventi)"
+                          @click="deleteOffer(eventi)"
                           >Valider</v-btn
                         >
                       </v-card-actions>
@@ -223,15 +223,15 @@ import Component from "vue-class-component";
 import { Watch } from "vue-property-decorator";
 import moment from "moment";
 import { Features } from "../domain/Features";
-import { Offre } from "../domain/Offre";
-import { Offrejson } from "../domain/OffreJson";
-import { OffreService } from "../services/OffreService";
+import { Offer } from "../domain/Offer";
+import { Offerjson } from "../domain/OfferJson";
+import { OfferService } from "../services/OfferService";
 
 @Component({})
-export default class ListeOffres extends Vue {
+export default class ListeOffers extends Vue {
   // Les données initiales peuvent être déclarées comme des propriétés de l'instance
 
-  events: Offre[] = [];
+  events: Offer[] = [];
 
   mycolor1: string = "rgba(188, 231, 132, 1)";
   mycolor2: string = "rgba(93, 211, 158, 1)";
@@ -241,11 +241,8 @@ export default class ListeOffres extends Vue {
   items: string[] = [];
   menu: boolean = false;
   input: string = "";
-  input2: string = "";
   dialog: boolean = false;
   loading: boolean = false;
-  nonce: number = 0;
-  image: string = "";
   nbDemandemax: number = 0;
   nbDemande: number = 0;
   globalID: number = 0;
@@ -256,51 +253,36 @@ export default class ListeOffres extends Vue {
   mounted() {
     moment.locale("fr");
   }
-  repeatOften() {
+  incrementOffer() {
     if (this.nbDemande < this.nbDemandemax) {
       this.nbDemande++;
 
-      this.globalID = requestAnimationFrame(this.repeatOften);
+      this.globalID = requestAnimationFrame(this.incrementOffer);
     } else {
       cancelAnimationFrame(this.globalID);
     }
   }
-  formatdate(event: Offre): Date {
+  formatdate(event: Offer): Date {
     return event.time;
   }
-  async addTicket(event: Offre) {
-    let uri = "http://localhost:8080/api/postule";
-    let mychip = new Offrejson(event);
 
-    var result = JSON.stringify(mychip);
-
-    await this.axios
-      .post(uri, result, {
-        headers: {
-          "Content-Type": "application/json"
-        }
-      })
-      .then(response => {
-        console.log(response);
-      });
-  }
-
-  async chargeTicket() {
+  async loadOffer() {
     this.loading = false;
-    let ticketService = new OffreService();
-    this.events = await ticketService.chargeTicket();
+    let offerService = new OfferService();
+    this.events = await offerService.loadOffer();
 
     this.nbDemandemax = this.events.length;
 
     this.loading = true;
   }
 
-  updateTicket(event: Offre) {
+  updateOffer(event: Offer) {
+    let offerService = new OfferService();
     if (event.id == 0) {
-      this.addTicket(event);
+      offerService.addOffer(event);
     } else {
       let uri = "http://localhost:8080/api/postule/" + event.id;
-      let newListOfFeatures = new Offrejson(event);
+      let newListOfFeatures = new Offerjson(event);
       newListOfFeatures.features.id = event.listfeatureId;
       var result = JSON.stringify(newListOfFeatures);
 
@@ -315,26 +297,27 @@ export default class ListeOffres extends Vue {
         });
     }
   }
-  deleteTicket(event: Offre) {
+  deleteOffer(event: Offer) {
     let uri = "http://localhost:8080/api/postule/delete/" + event.id;
     this.axios.post(uri).then(response => {
       console.log(response);
     });
     event.dialog = false;
   }
-  remove(event: Offre, item: string) {
+  remove(event: Offer, item: string) {
     event.listfeature.splice(event.listfeature.indexOf(item), 1);
     event.listfeature = [...event.listfeature];
   }
   timeline() {
     return this.events.slice().reverse();
   }
-  changeUrlImage(eventi: Offre) {
+  changeUrlImage(eventi: Offer) {
     eventi.show = !eventi.show;
   }
 
-  modifyUrlImg(eventi: Offre, nouvelImage: event) {
+  modifyUrlImg(eventi: Offer, nouvelImage: $event) {
     // Reference to the DOM input element
+
     var input = event.target;
 
     // Ensure that you have a file before attempting to read it
@@ -346,21 +329,21 @@ export default class ListeOffres extends Vue {
         // Note: arrow function used here, so that "this.imageData" refers to the imageData of Vue component
         // Read image as base64 and set to imageData
         eventi.srcimage = e.target.result;
-        eventi.srcimg = input.files[0].name;
       };
+      eventi.srcimg = input.files[0].name;
       // Start the reader job - read file as a data url (base64 format)
       reader.readAsDataURL(input.files[0]);
     }
 
     this.changeUrlImage(eventi);
   }
-  changelink(eventi: Offre) {
+  changeLink(eventi: Offer) {
     eventi.show1 = !eventi.show1;
   }
-  modifylink(event: Offre, nouveaulink: $event) {
+  modifyLink(event: Offer, nouveaulink: $event) {
     // event.srcimg = require('@/assets/'+nouvelImage[0].name);
     event.target = nouveaulink;
-    this.changelink(event);
+    this.changeLink(event);
   }
   // Les méthodes peuvent être déclarées comme des méthodes d'instance
 

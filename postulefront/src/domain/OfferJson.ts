@@ -1,7 +1,7 @@
 import { Features } from './Features';
-import { Offre } from './Offre';
+import { Offer } from './Offer';
 
-export class Offrejson {
+export class Offerjson {
   id: number;
   text: string;
   time: Date;
@@ -9,7 +9,7 @@ export class Offrejson {
   features: Features;
   target: string;
 
-  constructor(offre: Offre) {
+  constructor(offre: Offer) {
     this.id = offre.id;
     this.text = offre.text.toString();
     this.time = offre.time;
