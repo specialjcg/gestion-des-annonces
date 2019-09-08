@@ -30,7 +30,7 @@
             <v-btn class="mx-0" depressed @click.prevent="repeatOften()">
               nblist
             </v-btn>
-            <v-btn class="mx-0" depressed @click.prevent="chargeTicket()">
+            <v-btn class="mx-0" depressed @click.prevent="loadOffer()">
               Charge
             </v-btn>
             <v-btn class="mx-0" depressed @click.prevent="comment()">
@@ -278,31 +278,11 @@ export default class ListeOffers extends Vue {
 
   updateOffer(event: Offer) {
     let offerService = new OfferService();
-    if (event.id == 0) {
-      offerService.addOffer(event);
-    } else {
-      let uri = "http://localhost:8080/api/postule/" + event.id;
-      let newListOfFeatures = new Offerjson(event);
-      newListOfFeatures.features.id = event.listfeatureId;
-      var result = JSON.stringify(newListOfFeatures);
-
-      this.axios
-        .post(uri, result, {
-          headers: {
-            "Content-Type": "application/json"
-          }
-        })
-        .then(response => {
-          console.log(response);
-        });
-    }
+    offerService.updateOffer(event);
   }
   deleteOffer(event: Offer) {
-    let uri = "http://localhost:8080/api/postule/delete/" + event.id;
-    this.axios.post(uri).then(response => {
-      console.log(response);
-    });
-    event.dialog = false;
+    let offerService = new OfferService();
+    offerService.deleteOffer(event);
   }
   remove(event: Offer, item: string) {
     event.listfeature.splice(event.listfeature.indexOf(item), 1);
