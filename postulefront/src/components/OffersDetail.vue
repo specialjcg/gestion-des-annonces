@@ -1,15 +1,6 @@
 <template>
   <v-card class="mx-auto" width="500px" elevation-24 :color="mycolor1">
-    <a :href="eventi.target" target="_blank">
-      <div v-show="eventi.srcimg != ''" style="width:100%;height:200px;">
-        <img
-          alt="logo"
-          :src="eventi.srcimage"
-          style="float:left;width:100%;height:100%;"
-        />
-      </div>
-    </a>
-
+    <LoadImage :eventi="eventi"></LoadImage>
     <v-card-text>
       <v-text-field
         v-show="eventi.show1"
@@ -20,30 +11,14 @@
         :placeholder="eventi.target"
         ><span>{{ eventi.target }}</span> </v-text-field
       ><br />
-      <v-file-input
-        v-show="eventi.show"
-        @change="modifyUrlImg(eventi, $event)"
-        accept="image/png, image/jpeg, image/bmp"
-        :placeholder="eventi.srcimg"
-        prepend-icon="mdi-camera"
-        label="logo de l'entreprise"
-      ></v-file-input>
+      
 
       <v-row>
         <v-col cols="12" lg="6">
           <DateTimeOfOffer :eventi="eventi"></DateTimeOfOffer>
         </v-col>
         <div class="flex-grow-1 pa-2 align-self-center">
-          <v-btn
-            :color="mycolor4"
-            fab
-            small
-            dark
-            depressed
-            @click="changeUrlImage(eventi)"
-          >
-            <v-icon title="LOGO">mdi-image</v-icon>
-          </v-btn>
+          
           <v-btn
             :color="mycolor2"
             fab
@@ -59,7 +34,7 @@
     </v-card-text>
     <TagOfOffer :eventi="eventi"></TagOfOffer>
 
-    <StateOfOffer :state="eventi.text"></StateOfOffer>
+    <StateOfOffer :eventi="eventi"></StateOfOffer>
 
     <SaveDeleteOffer :eventi="eventi"></SaveDeleteOffer>
   </v-card>
@@ -74,9 +49,16 @@ import StateOfOffer from "../components/StateOfOffer.vue";
 import DateTimeOfOffer from "../components/DateTimeOfOffer.vue";
 import TagOfOffer from "../components/TagOfOffer.vue";
 import SaveDeleteOffer from "../components/SaveDeleteOffer.vue";
+import LoadImage from "../components/LoadImage.vue";
 
 @Component({
-  components: { StateOfOffer, DateTimeOfOffer, TagOfOffer, SaveDeleteOffer }
+  components: {
+    StateOfOffer,
+    DateTimeOfOffer,
+    TagOfOffer,
+    SaveDeleteOffer,
+    LoadImage
+  }
 })
 export default class OffersDetail extends Vue {
   @Prop() eventi: Offer | undefined;
@@ -96,32 +78,6 @@ export default class OffersDetail extends Vue {
     moment.locale("fr");
   }
 
-  changeUrlImage(eventi: Offer) {
-    eventi.show = !eventi.show;
-  }
-
-  modifyUrlImg(eventi: Offer, nouvelImage: $event) {
-    // Reference to the DOM input element
-
-    var input = event.target;
-
-    // Ensure that you have a file before attempting to read it
-    if (input.files && input.files[0]) {
-      // create a new FileReader to read this image and convert to base64 format
-      var reader = new FileReader();
-      // Define a callback function to run, when FileReader finishes its job
-      reader.onload = e => {
-        // Note: arrow function used here, so that "this.imageData" refers to the imageData of Vue component
-        // Read image as base64 and set to imageData
-        eventi.srcimage = e.target.result;
-      };
-      eventi.srcimg = input.files[0].name;
-      // Start the reader job - read file as a data url (base64 format)
-      reader.readAsDataURL(input.files[0]);
-    }
-
-    this.changeUrlImage(eventi);
-  }
   changeLink(eventi: Offer) {
     eventi.show1 = !eventi.show1;
   }
