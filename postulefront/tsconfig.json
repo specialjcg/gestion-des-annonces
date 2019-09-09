@@ -1,12 +1,14 @@
 {
   "compilerOptions": {
     "target": "esnext",
+     "experimentalDecorators": true,
+     "allowJs": true,
     "module": "esnext",
     "strict": true,
     "jsx": "preserve",
     "importHelpers": true,
     "moduleResolution": "node",
-    "experimentalDecorators": true,
+    
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
