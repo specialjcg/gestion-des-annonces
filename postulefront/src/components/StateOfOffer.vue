@@ -3,7 +3,6 @@
     <v-chip-group
       v-model="eventi.text"
       active-class="red darken-2 accent-4 white--text"
-      
       mandatory
     >
       <v-chip :color="mycolor2">encour</v-chip>
@@ -26,7 +25,6 @@ import { Offer } from "../domain/Offer";
 export default class StateOfOffer extends Vue {
   @Prop() eventi: Offer | undefined;
   mycolor2: string = "rgba(93, 211, 158, 1)";
-  
 }
 </script>
 
