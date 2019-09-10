@@ -37,9 +37,15 @@ import { Offer } from "../domain/Offer";
 @Component({})
 export default class DateTimeOfOffer extends Vue {
   @Prop() eventi: Offer | undefined;
+  @Watch("eventi.time")
+  changeDate(val: Date, oldVal: Date) {
+    (this.eventi.timeformat = moment(val).format("LLL")),
+      (this.eventi.time = val);
+  }
 
   menu: boolean = false;
   mycolor2: string = "rgba(93, 211, 158, 1)";
+
   deleteOffer(event: Offer) {
     let offerService = new OfferService();
     offerService.deleteOffer(event);
