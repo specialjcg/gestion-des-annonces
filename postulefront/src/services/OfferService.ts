@@ -51,7 +51,7 @@ export class OfferService {
              },
            });
            
-           return response.data.map(res => {
+           return response.data.map((res: { features: Features; srcimg: string; id: any; text: string; time: any; target: any; }) => {
              let myitem: string[] = this.transferttoitem(res.features);
              let varsrcimg = new Image();
              let str: string = res.srcimg;
