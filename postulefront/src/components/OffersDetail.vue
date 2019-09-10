@@ -11,14 +11,12 @@
         :placeholder="eventi.target"
         ><span>{{ eventi.target }}</span> </v-text-field
       ><br />
-      
 
       <v-row>
         <v-col cols="12" lg="6">
           <DateTimeOfOffer :eventi="eventi"></DateTimeOfOffer>
         </v-col>
         <div class="flex-grow-1 pa-2 align-self-center">
-          
           <v-btn
             :color="mycolor2"
             fab
@@ -81,10 +79,11 @@ export default class OffersDetail extends Vue {
   changeLink(eventi: Offer) {
     eventi.show1 = !eventi.show1;
   }
-  modifyLink(event: Offer, nouveaulink: $event) {
+  modifyLink(eventi: Offer) {
     // event.srcimg = require('@/assets/'+nouvelImage[0].name);
-    event.target = nouveaulink;
-    this.changeLink(event);
+    var input = event!.target as HTMLInputElement;
+    eventi.target = input.value;
+    this.changeLink(eventi!);
   }
   // Les méthodes peuvent être déclarées comme des méthodes d'instance
 }
