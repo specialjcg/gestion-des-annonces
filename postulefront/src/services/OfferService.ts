@@ -64,7 +64,7 @@ export class OfferService {
                id: res.id,
                text: parseInt(res.text),
                time: res.time,
-               timeformat: moment(res.time).format('LLL'),
+               timeformat: moment(res.time).format('L'),
                srcimg: res.srcimg,
                dialog: false,
                listfeature: myitem,
