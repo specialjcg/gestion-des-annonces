@@ -13,9 +13,6 @@
       ><br />
 
       <v-row>
-        <v-col cols="12" lg="6">
-          <DateTimeOfOffer :eventi="eventi"></DateTimeOfOffer>
-        </v-col>
         <div class="flex-grow-1 pa-2 align-self-center">
           <v-btn
             :color="mycolor2"
@@ -30,6 +27,13 @@
         </div></v-row
       >
     </v-card-text>
+    <v-col cols="12" lg="6">
+      <DateTimeOfOffer :eventi="eventi"></DateTimeOfOffer
+    ></v-col>
+    <v-col cols="12" lg="6">
+      <TimeOfOffer :eventi="eventi"></TimeOfOffer>
+    </v-col>
+
     <TagOfOffer :eventi="eventi"></TagOfOffer>
 
     <StateOfOffer :eventi="eventi"></StateOfOffer>
@@ -45,6 +49,7 @@ import moment from "moment";
 import { Offer } from "../domain/Offer";
 import StateOfOffer from "../components/StateOfOffer.vue";
 import DateTimeOfOffer from "../components/DateTimeOfOffer.vue";
+import TimeOfOffer from "../components/TimeOfOffer.vue";
 import TagOfOffer from "../components/TagOfOffer.vue";
 import SaveDeleteOffer from "../components/SaveDeleteOffer.vue";
 import LoadImage from "../components/LoadImage.vue";
@@ -55,7 +60,8 @@ import LoadImage from "../components/LoadImage.vue";
     DateTimeOfOffer,
     TagOfOffer,
     SaveDeleteOffer,
-    LoadImage
+    LoadImage,
+    TimeOfOffer
   }
 })
 export default class OffersDetail extends Vue {
