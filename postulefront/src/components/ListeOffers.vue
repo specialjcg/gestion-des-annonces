@@ -123,7 +123,7 @@ export default class ListeOffers extends Vue {
       id: 0,
       text: 0,
       time: strTime,
-      timeformat: moment(strTime).format("LLL"),
+      timeformat: moment(strTime).format("L"),
       srcimg: "",
       dialog: false,
       listfeature: [],
