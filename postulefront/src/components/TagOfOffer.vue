@@ -1,7 +1,7 @@
 <template>
   <v-card-text>
     <v-combobox
-      v-model="eventi.listfeature"
+      v-model="eventi.features"
       :items="items"
       chips
       clearable
@@ -49,8 +49,8 @@ export default class TagOfOffer extends Vue {
   menu: boolean = false;
 
   removeTag(event: Offer, item: string) {
-    event.listfeature.splice(event.listfeature.indexOf(item), 1);
-    event.listfeature = [...event.listfeature];
+    event.features.splice(event.features.indexOf(item), 1);
+    event.features = [...event.features];
   }
 }
 </script>

@@ -3,7 +3,8 @@
     <v-btn :color="mycolor4" dark @click="updateOffer(eventi)">
       Save
     </v-btn>
-    <v-dialog v-model="eventi.dialog" persistent max-width="290">
+    <div class="flex-grow-1"></div>
+<v-dialog v-model="eventi.dialog" persistent max-width="290">
       <template v-slot:activator="{ on }">
         <v-btn :color="mycolor4" dark v-on="on">Supprimer</v-btn>
       </template>
