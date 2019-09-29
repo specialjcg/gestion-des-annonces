@@ -1,7 +1,7 @@
-import { Features } from './Features';
+import { Features } from "./Features";
 import { Offer } from './Offer';
 
-export class Offerjson {
+export class OfferData {
   id: number;
   text: string;
   time: Date;
@@ -15,7 +15,7 @@ export class Offerjson {
     this.time = offre.time;
     this.srcimg = offre.srcimg;
     this.features = new Features();
-    this.features.transfert(offre.listfeature);
+    this.features.transfert(offre.features);
     this.features.id = offre.id;
     this.target = offre.target;
   }

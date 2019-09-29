@@ -7,25 +7,36 @@
           :src="eventi.srcimage"
           style="float:left;width:100%;height:100%;"
         />
-      </div> </a
-    ><v-file-input
-      v-show="eventi.show"
-      @change="modifyUrlImg(eventi, $event)"
-      accept="image/png, image/jpeg, image/bmp"
-      :placeholder="eventi.srcimg"
-      prepend-icon="mdi-camera"
-      label="logo de l'entreprise"
-    ></v-file-input
-    ><v-btn
-      :color="mycolor4"
-      fab
-      small
-      dark
-      depressed
-      @click="changeUrlImage(eventi)"
-    >
-      <v-icon title="LOGO">mdi-image</v-icon>
-    </v-btn>
+      </div>
+    </a>
+    <v-container>
+       
+<v-layout row justify-space-around>
+        <v-flex md3>
+          <v-btn
+            :color="mycolor4"
+            fab
+            small
+            dark
+            depressed
+            @click="changeUrlImage(eventi)"
+          >
+            <v-icon title="LOGO">mdi-image</v-icon>
+          </v-btn>
+        </v-flex>
+        <v-flex md6>
+<v-file-input
+            v-show="eventi.show"
+            @change="modifyUrlImg(eventi, $event)"
+            accept="image/png, image/jpeg, image/bmp"
+            :placeholder="eventi.srcimg"
+            prepend-icon="mdi-camera"
+            label="charger le logo de l'entreprise"
+          ></v-file-input>
+        </v-flex>
+      </v-layout>
+    </v-container>
+  
   </div>
 </template>
 

@@ -61,11 +61,11 @@ import { Watch } from "vue-property-decorator";
 import moment from "moment";
 import { Features } from "../domain/Features";
 import { Offer } from "../domain/Offer";
-import { Offerjson } from "../domain/OfferJson";
+import { OfferData } from "../domain/OfferData";
 import { OfferService } from "../services/OfferService";
-import OffersDetail from "../components/OffersDetail.vue";
+import OfferDetail from "../components/OffersDetail.vue";
 
-@Component({ components: { OffersDetail } })
+@Component({ components: { OffersDetail: OfferDetail } })
 export default class ListeOffers extends Vue {
   // Les données initiales peuvent être déclarées comme des propriétés de l'instance
 
@@ -126,8 +126,8 @@ export default class ListeOffers extends Vue {
       timeformat: moment(strTime).format("L"),
       srcimg: "",
       dialog: false,
-      listfeature: [],
-      listfeatureId: 0,
+      features: [],
+      featureId: 0,
       srcimage: "",
       target: "",
       show1: false,
