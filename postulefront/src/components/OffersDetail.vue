@@ -1,38 +1,15 @@
 <template>
   <v-card class="mx-auto" width="500px" elevation-24 :color="mycolor1">
     <LoadImage :eventi="eventi"></LoadImage>
-    <v-card-text>
-      <v-text-field
-        v-show="eventi.show1"
-        width="80%"
-        multiple
-        @change="modifyLink(eventi, $event)"
-        label="lien vers offre"
-        :placeholder="eventi.target"
-        ><span>{{ eventi.target }}</span> </v-text-field
-      ><br />
-
-      <v-row>
-        <div class="flex-grow-1 pa-2 align-self-center">
-          <v-btn
-            :color="mycolor2"
-            fab
-            small
-            dark
-            depressed
-            @click="changeLink(eventi)"
-          >
-            <v-icon title="Link">mdi-link</v-icon>
-          </v-btn>
-        </div></v-row
-      >
-    </v-card-text>
-    <v-col cols="12" lg="6">
-      <DateTimeOfOffer :eventi="eventi"></DateTimeOfOffer
-    ></v-col>
-    <v-col cols="12" lg="6">
-      <TimeOfOffer :eventi="eventi"></TimeOfOffer>
-    </v-col>
+    <LoadLink :eventi="eventi"></LoadLink>
+    <v-layout row justify-space-around>
+      <v-flex md3>
+        <DateTimeOfOffer :eventi="eventi"></DateTimeOfOffer>
+      </v-flex>
+      <v-flex md3>
+        <TimeOfOffer :eventi="eventi"></TimeOfOffer>
+      </v-flex>
+    </v-layout>
 
     <TagOfOffer :eventi="eventi"></TagOfOffer>
 
@@ -53,6 +30,7 @@ import TimeOfOffer from "../components/TimeOfOffer.vue";
 import TagOfOffer from "../components/TagOfOffer.vue";
 import SaveDeleteOffer from "../components/SaveDeleteOffer.vue";
 import LoadImage from "../components/LoadImage.vue";
+import LoadLink from "../components/LoadLink.vue";
 
 @Component({
   components: {
@@ -61,10 +39,11 @@ import LoadImage from "../components/LoadImage.vue";
     TagOfOffer,
     SaveDeleteOffer,
     LoadImage,
-    TimeOfOffer
+    TimeOfOffer,
+    LoadLink
   }
 })
-export default class OffersDetail extends Vue {
+export default class OfferDetail extends Vue {
   @Prop() eventi: Offer | undefined;
 
   events: Offer[] = [];
@@ -82,15 +61,6 @@ export default class OffersDetail extends Vue {
     moment.locale("fr");
   }
 
-  changeLink(eventi: Offer) {
-    eventi.show1 = !eventi.show1;
-  }
-  modifyLink(eventi: Offer) {
-    // event.srcimg = require('@/assets/'+nouvelImage[0].name);
-    var input = event!.target as HTMLInputElement;
-    eventi.target = input.value;
-    this.changeLink(eventi!);
-  }
   // Les méthodes peuvent être déclarées comme des méthodes d'instance
 }
 </script>

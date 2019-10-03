@@ -3,40 +3,40 @@ import {Offer} from '@/domain/Offer';
 import axios from 'axios';
 
 import moment from 'moment';
-import {Offerjson} from '@/domain/OfferJson';
+import {OfferData} from '@/domain/OfferData';
 
 export class OfferService {
-         transferttoitem(res: Features): string[] {
-           const item: string[] = [];
+         transfertToItems(res: Features): string[] {
+           const items: string[] = [];
            if (res.chip1 != null) {
-             item.push(res.chip1);
+             items.push(res.chip1);
            }
            if (res.chip2 != null) {
-             item.push(res.chip2);
+             items.push(res.chip2);
            }
            if (res.chip3 != null) {
-             item.push(res.chip3);
+             items.push(res.chip3);
            }
            if (res.chip4 != null) {
-             item.push(res.chip4);
+             items.push(res.chip4);
            }
            if (res.chip5 != null) {
-             item.push(res.chip5);
+             items.push(res.chip5);
            }
            if (res.chip6 != null) {
-             item.push(res.chip6);
+             items.push(res.chip6);
            }
            if (res.chip7 != null) {
-             item.push(res.chip7);
+             items.push(res.chip7);
            }
            if (res.chip8 != null) {
-             item.push(res.chip8);
+             items.push(res.chip8);
            }
            if (res.chip9 != null) {
-             item.push(res.chip9);
+             items.push(res.chip9);
            }
 
-           return item;
+           return items;
          }
          imagein(ima: string) {
            return require('@/assets/' + ima);
@@ -52,7 +52,7 @@ export class OfferService {
            });
            
            return response.data.map((res: { features: Features; srcimg: string; id: any; text: string; time: any; target: any; }) => {
-             let myitem: string[] = this.transferttoitem(res.features);
+             let myitems: string[] = this.transfertToItems(res.features);
              let varsrcimg = new Image();
              let str: string = res.srcimg;
              if (str.includes('/')) {
@@ -67,8 +67,8 @@ export class OfferService {
                timeformat: moment(res.time).format('L'),
                srcimg: res.srcimg,
                dialog: false,
-               listfeature: myitem,
-               listfeatureId: res.features.id,
+               features: myitems,
+               featureId: res.features.id,
                srcimage: varsrcimg.src,
                target: res.target,
                show: false,
@@ -78,7 +78,7 @@ export class OfferService {
          }
          async addOffer(event: Offer) {
            let uri = 'http://localhost:8080/api/postule';
-           let mychip = new Offerjson(event);
+           let mychip = new OfferData(event);
            var result = JSON.stringify(mychip);
            await axios.post(uri, result, {
              headers: {
@@ -92,8 +92,8 @@ export class OfferService {
              this.addOffer(event);
            } else {
              let uri = 'http://localhost:8080/api/postule/' + event.id;
-             let newListOfFeatures = new Offerjson(event);
-             newListOfFeatures.features.id = event.listfeatureId;
+             let newListOfFeatures = new OfferData(event);
+             newListOfFeatures.features.id = event.featureId;
              var result = JSON.stringify(newListOfFeatures);
 
              axios

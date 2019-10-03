@@ -7,8 +7,8 @@ export class Offer {
     show1: boolean;
     show: boolean;
     srcimg: string;
-    listfeature: string[];
-    listfeatureId: number;
+    features: string[];
+    featureId: number;
     target: string;
     srcimage: string;
     constructor() {
@@ -18,8 +18,8 @@ export class Offer {
       this.timeformat = "";
       this.dialog = false;
       this.srcimg = "";
-      this.listfeature = [];
-      this.listfeatureId = 0;
+      this.features = [];
+      this.featureId = 0;
       this.srcimage = "";
       this.target = "";
       this.show = false;
