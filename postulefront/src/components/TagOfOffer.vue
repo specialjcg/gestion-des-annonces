@@ -56,8 +56,6 @@ export default class TagOfOffer extends Vue {
 </script>
 
 <style lang="scss" scoped>
-
-
 .tag-input span.chip {
   background-color: #1976d2;
   color: #fff;

@@ -49,10 +49,10 @@ export default class LoadImgage extends Vue {
     eventi.show = !eventi.show;
   }
 
-  modifyUrlImg(eventi: Offer, nouvelImage: $event) {
+  modifyUrlImg(eventi: Offer) {
     // Reference to the DOM input element
 
-    var input = event.target;
+    var input = event!.target as HTMLInputElement;
 
     // Ensure that you have a file before attempting to read it
     if (input.files && input.files[0]) {
@@ -62,7 +62,8 @@ export default class LoadImgage extends Vue {
       reader.onload = e => {
         // Note: arrow function used here, so that "this.imageData" refers to the imageData of Vue component
         // Read image as base64 and set to imageData
-        eventi.srcimage = e.target.result;
+
+        eventi.srcimage = reader.result as string;
       };
       eventi.srcimg = input.files[0].name;
       // Start the reader job - read file as a data url (base64 format)

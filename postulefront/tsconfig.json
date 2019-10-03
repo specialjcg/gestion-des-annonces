@@ -1,22 +1,23 @@
 {
   "compilerOptions": {
-    "target": "esnext",
-     "experimentalDecorators": true,
-     "allowJs": true,
+    "target": "esnext", 
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowJs": true,
     "module": "esnext",
     "strict": true,
     "jsx": "preserve",
     "importHelpers": true,
-    "moduleResolution": "node",
-    
+    "moduleResolution": "node",    
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
+    "allowSyntheticDefaultImports": true,    
     "sourceMap": true,
     "baseUrl": ".",
     "types": [
       "webpack-env",
       "mocha",
-      "chai"
+      "chai",
+     "vuetify"
     ],
     "paths": {
       "@/*": [
@@ -40,4 +41,5 @@
   "exclude": [
     "node_modules"
   ]
+  
 }
